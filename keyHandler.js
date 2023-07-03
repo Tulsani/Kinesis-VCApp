@@ -9,6 +9,6 @@ export const getKinesisKeys = async ()=>{
         console.log("Secret set",state);
     }catch(err){
         console.log("Error while getting secret",err);
-        state.setKeys({'secretKey':null,'secretValye':null});
+        state.setKeys({'secretKey':null,'secretValue':null});
     }
 };
