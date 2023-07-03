@@ -11,8 +11,8 @@ const viewerState = {
 let useTrickle = true;
  const kinesisVideoClient = new AWS.KinesisVideo({
     region:'ap-southeast-1',
-    accessKeyId:'AKIAVZUUFVXYD5K6KZUK',
-    secretAccessKey:'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'
+    accessKeyId:'AKIAVZUUFVXYIIUI7HUO',
+    secretAccessKey:'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'
 });
 
 export const startViewer = async ()=>{
