@@ -38,8 +38,8 @@ export const toggleAudioVideoState = ()=>{
 export const setKeys = (secret)=>{
     state = {
         ...state,
-        secretKey:secret.secretValue,
-        secertValue:secret.secretKey
+        secretKey: secret.secretKey,
+        secertValue: secret.secretValue
     }
 }
 
