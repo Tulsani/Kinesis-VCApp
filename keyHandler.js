@@ -6,6 +6,7 @@ export const getKinesisKeys = async ()=>{
         let secret = await fetch(url,{method:'GET'});
         secret= await secret.json();
         state.setKeys(secret);
+        console.log("Secret set",state);
     }catch(err){
         console.log("Error while getting secret",err);
         state.setKeys({'secretKey':null,'secretValye':null});
