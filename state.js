@@ -39,7 +39,7 @@ export const setKeys = (secret)=>{
     state = {
         ...state,
         secretKey: secret.secretKey,
-        secertValue: secret.secretValue
+        secretValue: secret.secretValue
     }
 }
 
