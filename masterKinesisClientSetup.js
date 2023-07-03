@@ -12,9 +12,7 @@ const masterState = {
     peerConnectionByClientId:{},
     peerConnectionStatsInterval:null
 };
-import * as keyHandler from './keyHandler.js';
 
-await keyHandler.getKinesisKeys();
 const trickleIce = true;
 const kinesisVideoClient = new AWS.KinesisVideo({
     region:'ap-southeast-1',
