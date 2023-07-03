@@ -3,6 +3,8 @@ let state = {
     remoteStream : null, 
     kinesisVideoClient : null,
     audio_video: false,
+    secretKey:null,
+    secertValue:null
 }
 
 export const setLocalStream = (stream)=>{
@@ -33,7 +35,16 @@ export const toggleAudioVideoState = ()=>{
         state.audio_video= true;
     }
 }
+export const setKeys = (secret)=>{
+    state = {
+        ...state,
+        secretKey:secret.secretKey,
+        secertValue:secret.secretValue
+    }
+}
 
 export const getState = ()=>{
     return state;
 };
+
+

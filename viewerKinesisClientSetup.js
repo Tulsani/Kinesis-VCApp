@@ -1,5 +1,8 @@
 import * as state from './state.js';
-import * as ui from './uiHandler.js'
+import * as ui from './uiHandler.js';
+import * as keyHandler from './keyHandler.js';
+
+await keyHandler.getKinesisKeys();
 const viewerState = {
     kinesisVideoClient: null,
     signalingClient: null,
@@ -11,8 +14,8 @@ const viewerState = {
 let useTrickle = true;
  const kinesisVideoClient = new AWS.KinesisVideo({
     region:'ap-southeast-1',
-    accessKeyId:'AKIAVZUUFVXYIIUI7HUO',
-    secretAccessKey:'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'
+    accessKeyId:state.getState().secretKey,
+    secretAccessKey:state.getState().secretValue
 });
 
 export const startViewer = async ()=>{
@@ -44,8 +47,8 @@ export const startViewer = async ()=>{
 
     const kinesisVideoSignalingChannelsClient = new AWS.KinesisVideoSignalingChannels({
         region: 'ap-southeast-1',
-        accessKeyId:'AKIAVZUUFVXYD5K6KZUK',
-        secretAccessKey:'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',
+        accessKeyId:state.getState().secretKey,
+        secretAccessKey:state.getState().secretValue,
         sessionToken: '',
         endpoint: endpointsByProtocol.HTTPS,
         correctClockSkew: true,
@@ -75,8 +78,8 @@ export const startViewer = async ()=>{
         role: KVSWebRTC.Role.VIEWER,
         region: 'ap-southeast-1',
         credentials: {
-            accessKeyId:'AKIAVZUUFVXYD5K6KZUK',
-            secretAccessKey:'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',
+            accessKeyId:state.getState().secretKey,
+            secretAccessKey:state.getState().secretValue,
             sessionToken: '',
         },
         systemClockOffset: kinesisVideoClient.config.systemClockOffset,

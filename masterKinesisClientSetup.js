@@ -1,6 +1,10 @@
 import * as state from './state.js';
 import * as kinesisVideo from 'https://unpkg.com/amazon-kinesis-video-streams-webrtc/dist/kvs-webrtc.min.js';
 import * as ui from './uiHandler.js';
+
+import * as keyHandler from './keyHandler.js';
+
+await keyHandler.getKinesisKeys();
 const masterState = {
     kinesisVideoClient: null,
     signalingClient: null,
@@ -8,12 +12,14 @@ const masterState = {
     peerConnectionByClientId:{},
     peerConnectionStatsInterval:null
 };
+import * as keyHandler from './keyHandler.js';
 
+await keyHandler.getKinesisKeys();
 const trickleIce = true;
 const kinesisVideoClient = new AWS.KinesisVideo({
     region:'ap-southeast-1',
-    accessKeyId:'AKIAVZUUFVXYIIUI7HUO',
-    secretAccessKey:'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'
+    accessKeyId:state.getState().secretKey,
+    secretAccessKey:state.getState().secretValue
 });
 
 export const startMaster = async ()=>{
@@ -26,6 +32,8 @@ export const startMaster = async ()=>{
     }).promise();
     let channelARN = describeSignalingChannel.ChannelInfo.ChannelARN;
     console.log("MASTER Channle ARN", channelARN);
+
+
 
     // Get Singaling Channel Enpoint Response
     const getSignalingChannelEndpointResponse = await kinesisVideoClient
@@ -52,8 +60,8 @@ export const startMaster = async ()=>{
         role: KVSWebRTC.Role.MASTER,
         region: 'ap-southeast-1',
         credentials: {
-            accessKeyId:'AKIAVZUUFVXYD5K6KZUK',
-            secretAccessKey:'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',
+            accessKeyId:state.getState().secretKey,
+            secretAccessKey:state.getState().secretValue,
             sessionToken: '',
         },
         systemClockOffset: kinesisVideoClient.config.systemClockOffset,
@@ -62,8 +70,8 @@ export const startMaster = async ()=>{
      // Get ICE server configuration
      const kinesisVideoSignalingChannelsClient = new AWS.KinesisVideoSignalingChannels({
         region: 'ap-southeast-1',
-        accessKeyId:'AKIAVZUUFVXYD5K6KZUK',
-        secretAccessKey:'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',
+        accessKeyId:state.getState().secretKey,
+        secretAccessKey:state.getState().secretValue,
         sessionToken: '',
         endpoint: endpointsByProtocol.HTTPS,
         correctClockSkew: true,
