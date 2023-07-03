@@ -4,7 +4,7 @@ let state = {
     kinesisVideoClient : null,
     audio_video: false,
     secretKey:null,
-    secertValue:null
+    secretValue:null
 }
 
 export const setLocalStream = (stream)=>{
