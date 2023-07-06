@@ -12,7 +12,7 @@ export const setupKinesisVideoStream = async ()=>{
     const streamName = `av-test_${state.getState().userId}`; // `${state.getState().callId}_${state.getState().userId}`; // utils to check  userId is valid
 
     let streamParams = {
-        streamName:streamName
+        StreamName:streamName
     }
 
     const createStreamResp = await kinesisVideo.createStream(streamParams).promise();
