@@ -9,13 +9,6 @@ export const setupKinesisVideoStream = async ()=>{
         secretAccessKey:state.getState().secretValue
     });
 
-    // setup streaming client kinesis video stream client
-    const kinesisVideoClient = new AWS.KinesisVideoStreams({
-        region:'ap-southeast-1',
-        accessKeyId:state.getState().secretKey,
-        secretAccessKey:state.getState().secretValue
-    });
-
     const streamName = `av-test_${state.getState().userId}`; // `${state.getState().callId}_${state.getState().userId}`; // utils to check  userId is valid
 
     let streamParams = {
@@ -31,7 +24,7 @@ export const setupKinesisVideoStream = async ()=>{
         Data:state.getState().localStream
     };
 
-    let pushStreamToKVSResp = await kinesisVideoClient.putMedia(clientDataStreamParams).promise();
+    let pushStreamToKVSResp = await kinesisVideo.putMedia(clientDataStreamParams).promise();
     console.log("push stream to kinesis response",pushStreamToKVSResp);
     
     //ui.recordingStatus(true);
