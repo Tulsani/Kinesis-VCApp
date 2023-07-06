@@ -4,7 +4,8 @@ let state = {
     kinesisVideoClient : null,
     audio_video: false,
     secretKey:null,
-    secretValue:null
+    secretValue:null,
+    userId:null
 }
 
 export const setLocalStream = (stream)=>{
@@ -42,7 +43,12 @@ export const setKeys = (secret)=>{
         secretValue: secret.secretValue
     }
 }
-
+export const setUserId = (userId)=>{
+    state = {
+        ...state,
+        userId:userId
+    }
+}
 export const getState = ()=>{
     return state;
 };

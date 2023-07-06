@@ -4,6 +4,7 @@ import * as rtcHandler from "./rtcHandler.js";
 import * as master from "./masterKinesisClientSetup.js";
 import * as viewer from "./viewerKinesisClientSetup.js";
 import * as ui from './uiHandler.js';
+import * as record from './videoStreamHandler.js';
 
 
 
@@ -50,6 +51,7 @@ const join_as_master_button = document.getElementById("join_call_master");
 join_as_master_button.addEventListener("click",async ()=>{
     console.log("Joining call as master");
     await master.startMaster();
+    await record.setupKinesisVideoStream();
 });
 
 const stop_as_master_button = document.getElementById("stop_call_master");
@@ -75,6 +77,7 @@ const join_call_viewer_button = document.getElementById('join_call_viewer');
 join_call_viewer_button.addEventListener("click",async()=>{
     console.log("Joining call as viewer");
     await viewer.startViewer();
+    await record.setupKinesisVideoStream();
 });
 
 const stop_as_viewer_button= document.getElementById('stop_call_viewer');
@@ -92,3 +95,11 @@ stop_as_viewer_button.addEventListener('click',async()=>{
     ui.setRemoteViewSrc(null);
     ui.setlocalViewSrc(null);
 })
+
+const submit_userId_button = document.getElementById('submit_userId');
+
+submit_userId_button.addEventListener('click',async()=>{
+    let userId_input_value= document.getElementById('userId').value;
+    state.setUserId(userId_input_value);
+    // TODO : disable userId input button
+});
