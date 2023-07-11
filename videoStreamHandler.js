@@ -9,7 +9,7 @@ export const setupKinesisVideoStream = async ()=>{
         secretAccessKey:state.getState().secretValue
     });
 
-    const streamName = `av-test_${state.getState().userId}`; // `${state.getState().callId}_${state.getState().userId}`; // utils to check  userId is valid
+    const streamName = `av-test`; // `${state.getState().callId}_${state.getState().userId}`; // utils to check  userId is valid
 
     let streamParams = {
         StreamName:streamName
