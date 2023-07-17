@@ -100,6 +100,7 @@ const submit_userId_button = document.getElementById('submit_userId');
 
 submit_userId_button.addEventListener('click',async()=>{
     let userId_input_value= document.getElementById('userId').value;
+    console.log('userId',userId_input_value);
     state.setUserId(userId_input_value);
     // TODO : disable userId input button
 });

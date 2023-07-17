@@ -26,7 +26,7 @@ export const startMaster = async ()=>{
     console.log('CREATING singaling channel');
     // get signaling channel arn
     const describeSignalingChannel = await kinesisVideoClient.describeSignalingChannel({
-        ChannelName:'av-test'
+        ChannelName:`av-test_${state.getState().userId}`
     }).promise();
     let channelARN = describeSignalingChannel.ChannelInfo.ChannelARN;
     console.log("MASTER Channle ARN", channelARN);
@@ -222,7 +222,7 @@ const deleteChannel = async ()=>{
 
     const describeSignalingChannelResponse = await kinesisVideoClient.describeSignalingChannel(
         {
-            ChannelName:'av-test'
+            ChannelName:`av-test_${state.getState().userId}`
         }).promise();
     const channelARN = describeSignalingChannelResponse.ChannelInfo.ChannelARN;
 
