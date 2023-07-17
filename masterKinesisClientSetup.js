@@ -22,7 +22,7 @@ const kinesisVideoClient = new AWS.KinesisVideo({
 
 export const startMaster = async ()=>{
     // creating a singaling channel
-    const createSignalChannelResponse = await createSingallingChannel(`av-test`)// await createSingallingChannel(`av-test_${state.getState().userId}`);
+    //const createSignalChannelResponse = await createSingallingChannel(`av-test`)// await createSingallingChannel(`av-test_${state.getState().userId}`);
     console.log('CREATING singaling channel');
     // get signaling channel arn
     const describeSignalingChannel = await kinesisVideoClient.describeSignalingChannel({
