@@ -41,7 +41,7 @@ const create_signaling_stream_button = document.getElementById("create_signaling
 
 create_signaling_stream_button.addEventListener("click",async ()=>{
     console.log("STARTING CALL");
-    await master.createSingallingChannel('av-test');
+    await record.setupKinesisVideoStream(); //master.createSingallingChannel('av-test');
     console.log("Created the channel, next it shoudl use lambda to notify other users about the call");
 });
 
