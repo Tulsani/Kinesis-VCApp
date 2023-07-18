@@ -20,7 +20,7 @@ let useTrickle = true;
 
 export const startViewer = async ()=>{
     const describeSignalingChannel = await kinesisVideoClient.describeSignalingChannel({
-        ChannelName:'av-test' //`av-test_${state.getState().userId}`
+        ChannelName:`av-test_${state.getState().userId}`
     }).promise();
 
     let channelARN = describeSignalingChannel.ChannelInfo.ChannelARN;
