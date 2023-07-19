@@ -145,6 +145,11 @@ export const startMaster = async ()=>{
             console.log("After Setting up remote track", state.getState());
         });
 
+        peerConnection.addEventListener('negotiationneeded',(event)=>{
+            console.log("MASTER : Remote client adding stream so renegotiation is required",event);
+            
+        })
+
         let currentState = state.getState();
 
         if(currentState.localStream){
