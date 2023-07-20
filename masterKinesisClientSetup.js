@@ -101,6 +101,7 @@ export const startMaster = async ()=>{
         video: resolution ,
         audio: true,
     };
+    const peerConnection = new RTCPeerConnection(configuration);
 
     // local stream set by main.js
     signalingClient.on('open',async()=>{
@@ -110,7 +111,6 @@ export const startMaster = async ()=>{
     signalingClient.on('sdpOffer',async(offer,remotClientId)=>{
         console.log('MASTER recieved SDP offer from client',remotClientId);
         // create new peer connection usng the offer from the client
-        const peerConnection = new RTCPeerConnection(configuration);
         masterState.peerConnectionByClientId[remotClientId]=peerConnection;
 
         // can be avoided
@@ -135,6 +135,27 @@ export const startMaster = async ()=>{
                 }
             }
         });
+
+        peerConnection.onnegotiationneeded= async ()=>{
+            console.log("MASTER resetting SDP answer");
+            if(currentState.localStream){
+                currentState.localStream.getTracks().forEach((track)=> peerConnection.addTrack(track,currentState.localStream));
+            }
+    
+            await peerConnection.setRemoteDescription(offer);
+            console.log("MASTER preparing SDP answer for client", remotClientId);
+    
+            await peerConnection.setLocalDescription(            
+                await peerConnection.createAnswer({
+                    offerToReceiveAudio: true,
+                    offerToReceiveVideo: true,
+            }));
+    
+            if(trickleIce){
+                console.log('MASTER sending SDP asnwer to client',remotClientId);
+                signalingClient.sendSdpAnswer(peerConnection.localDescription,remotClientId);
+            }
+        }
 
         // Remote tracks been recieved, adding them to remote view 
         peerConnection.addEventListener('track',(event)=>{
