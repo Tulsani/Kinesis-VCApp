@@ -142,26 +142,13 @@ export const startMaster = async ()=>{
         });
 
         peerConnection.onnegotiationneeded= async()=>{
-            console.log("MASTER resetting SDP answer");
-            if(currentState.localStream){
-                currentState.localStream.getTracks().forEach((track)=> peerConnection.addTrack(track,currentState.localStream));
-            }
-    
-            await peerConnection.setRemoteDescription(offer);
-            console.log("MASTER preparing SDP answer for client", remotClientId);
-    
-            await peerConnection.setLocalDescription(            
-                await peerConnection.createAnswer({
-                    offerToReceiveAudio: true,
-                    offerToReceiveVideo: true,
-            }));
-    
-            if(trickleIce){
-                console.log('MASTER sending SDP asnwer to client',remotClientId);
-                signalingClient.sendSdpAnswer(peerConnection.localDescription,remotClientId);
-            }
+            console.log("########### MASTER : [1] Remote client adding stream so renegotiation is required ######");
         }
 
+        peerConnection.addEventListener("negotiationneeded",(event)=>{
+            console.log("########### MASTER : [2] Remote client adding stream so renegotiation is required ######",event);
+            
+        });
         // Remote tracks been recieved, adding them to remote view 
         peerConnection.addEventListener('track',(event)=>{
             console.log("MASTER adding remote track for",remotClientId,event);
@@ -171,10 +158,6 @@ export const startMaster = async ()=>{
             console.log("After Setting up remote track", state.getState());
         });
 
-        peerConnection.addEventListener('negotiationneeded',(event)=>{
-            console.log("MASTER : Remote client adding stream so renegotiation is required",event);
-            
-        })
 
         let currentState = state.getState();
 
