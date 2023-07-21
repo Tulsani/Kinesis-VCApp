@@ -110,8 +110,13 @@ export const startMaster = async ()=>{
     signalingClient.on('sdpOffer',async(offer,remotClientId)=>{
         console.log('MASTER recieved SDP offer from client',remotClientId);
         // create new peer connection usng the offer from the client
-        const peerConnection = new RTCPeerConnection(configuration);
-        masterState.peerConnectionByClientId[remotClientId]=peerConnection;
+        let peerConnection =  null;
+        if(masterState.peerConnectionByClientId[remotClientId]){
+            peerConnection = masterState.peerConnectionByClientId[remotClientId]; 
+        }else{
+            peerConnection = new RTCPeerConnection(configuration);
+            masterState.peerConnectionByClientId[remotClientId]=peerConnection;
+        }
 
         // can be avoided
         if(!masterState.peerConnectionStatsInterval){
