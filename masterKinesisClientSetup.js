@@ -179,7 +179,13 @@ export const startMaster = async ()=>{
         let currentState = state.getState();
 
         if(currentState.localStream){
-            currentState.localStream.getTracks().forEach((track)=> peerConnection.addTrack(track,currentState.localStream));
+            currentState.localStream.getTracks().forEach((track)=> {
+                try{
+                    peerConnection.addTrack(track,currentState.localStream)    
+                }catch(err){
+                    console.log("Error while adding track very normal",err)
+                }
+                });
         }
 
         await peerConnection.setRemoteDescription(offer);
