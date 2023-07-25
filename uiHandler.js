@@ -11,7 +11,7 @@ export let setlocalViewSrc = (stream)=>{
 }
 
 export let setRemoteViewSrc = (stream)=>{
-    remoteViewPlayer.srcObject = streamToShow;
+    //remoteViewPlayer.srcObject = streamToShow;
      
     let audioTracks = stream.getAudioTracks();
     let videoTracks = stream.getVideoTracks();
