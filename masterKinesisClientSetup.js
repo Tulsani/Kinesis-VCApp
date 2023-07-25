@@ -152,6 +152,7 @@ export const startMaster = async ()=>{
         // Remote tracks been recieved, adding them to remote view 
         peerConnection.addEventListener('track',(event)=>{
             console.log("MASTER adding remote track for",remotClientId,event);
+            console.log(event.streams,event.streams.length,event.streams[0].getTracks(),event.streams[0].getTracks.length);
             state.setRemoteStream(event.streams[0]);
             // ui to set view stream
             ui.setRemoteViewSrc(event.streams[0]);
