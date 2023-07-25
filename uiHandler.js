@@ -10,13 +10,12 @@ export let setlocalViewSrc = (stream)=>{
 }
 
 export let setRemoteViewSrc = (stream)=>{
-    //remoteViewPlayer.srcObject = stream;
+    remoteViewPlayer.srcObject = stream;
     let audioTracks = stream.getAudioTracks();
     let videoTracks = stream.getVideoTracks();
 
-    videoTracks.forEach((vidTrack,i) => {
         const streamToShow = new MediaStream();
-        streamToShow.addTrack(vidTrack);
+        streamToShow.addTrack(videoTracks[0]);
         //streamToShow.addTrack(audioTracks[i]);
 
         const videoPlayer = document.createElement('video');
@@ -30,5 +29,4 @@ export let setRemoteViewSrc = (stream)=>{
         // Append the video player to arena
         remoteArena.appendChild(videoPlayer);
 
-    });
 }
