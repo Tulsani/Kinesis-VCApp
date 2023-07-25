@@ -15,7 +15,7 @@ export let setRemoteViewSrc = (stream)=>{
     let videoTracks = stream.getVideoTracks();
     console.log("Video Tracks",videoTracks);
         const streamToShow = new MediaStream();
-        streamToShow.addTrack(videoTracks[0]);
+        streamToShow.addTrack(videoTracks[videoTracks.length-1]);
         //streamToShow.addTrack(audioTracks[i]);
 
         const videoPlayer = document.createElement('video');
@@ -24,9 +24,9 @@ export let setRemoteViewSrc = (stream)=>{
         // videoPlayer.setAttribute('height', '240');
 
         // Set the source of the video player.
-        videoPlayer.srcObject= streamToShow;
         remoteViewPlayer.srcObject = streamToShow;
         // Append the video player to arena
         remoteArena.appendChild(videoPlayer);
+        videoPlayer.srcObject= streamToShow;
 
 }
