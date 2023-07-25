@@ -160,6 +160,7 @@ export const startViewer = async ()=>{
     // Remote Stream Recieved adding it to state
     peerConnection.addEventListener('track',(event)=>{
         console.log("VIEWER Recieved remote track");
+        console.log(event.streams,event.streams.length,event.streams[0].getTracks(),event.streams[0].getTracks.length);
         state.setRemoteStream(event.streams[0]);
         // setting  UI remote stream
         ui.setRemoteViewSrc(event.streams[0]);
